@@ -52,12 +52,14 @@ p {
 }
 
 .brand {
-  color: #f4f7ff;
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-shadow: 0 0 14px rgba(120, 189, 255, 0.6);
+}
+
+.brand-logo {
+  width: clamp(148px, 18vw, 240px);
+  height: auto;
 }
 
 .nav-list {
@@ -101,7 +103,7 @@ p {
   }
 
   .brand {
-    text-align: center;
+    justify-content: center;
   }
 
   .nav-list {

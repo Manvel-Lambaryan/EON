@@ -36,8 +36,8 @@ p {
 
 .cosmic-header {
   width: min(1320px, 100%);
-  margin-top: 1rem;
-  padding: 0.95rem 1.35rem;
+  margin-top: 0.55rem;
+  padding: 0.42rem 1.15rem;
   border-radius: 999px;
   border: 1px solid rgba(168, 188, 255, 0.35);
   background: linear-gradient(120deg, rgba(28, 43, 74, 0.75), rgba(14, 21, 39, 0.9));
@@ -58,7 +58,7 @@ p {
 }
 
 .brand-logo {
-  width: clamp(148px, 18vw, 240px);
+  width: clamp(100px, 12.5vw, 160px);
   height: auto;
 }
 
@@ -74,7 +74,7 @@ p {
 
 .nav-link {
   display: inline-block;
-  padding: 0.55rem 0.95rem;
+  padding: 0.34rem 0.78rem;
   border-radius: 999px;
   color: #d8e5ff;
   text-decoration: none;

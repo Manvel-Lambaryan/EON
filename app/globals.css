@@ -16,10 +16,9 @@ body {
 
 .container {
   min-height: 100vh;
-  display: grid;
-  place-content: center;
-  text-align: center;
-  gap: 0.75rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   padding: 2rem;
 }
 
@@ -33,4 +32,79 @@ p {
   margin: 0;
   font-size: 1.1rem;
   color: #c4d0f0;
+}
+
+.cosmic-header {
+  width: min(1320px, 100%);
+  margin-top: 1rem;
+  padding: 0.95rem 1.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(168, 188, 255, 0.35);
+  background: linear-gradient(120deg, rgba(28, 43, 74, 0.75), rgba(14, 21, 39, 0.9));
+  box-shadow:
+    0 12px 32px rgba(3, 7, 18, 0.6),
+    inset 0 0 18px rgba(164, 198, 255, 0.2);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+}
+
+.brand {
+  color: #f4f7ff;
+  text-decoration: none;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-shadow: 0 0 14px rgba(120, 189, 255, 0.6);
+}
+
+.nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  color: #d8e5ff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+  background: linear-gradient(140deg, rgba(108, 146, 255, 0.32), rgba(79, 223, 255, 0.2));
+  box-shadow:
+    0 0 20px rgba(82, 170, 255, 0.35),
+    inset 0 0 14px rgba(189, 225, 255, 0.25);
+}
+
+@media (max-width: 800px) {
+  .container {
+    padding: 1.25rem;
+  }
+
+  .cosmic-header {
+    border-radius: 22px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .brand {
+    text-align: center;
+  }
+
+  .nav-list {
+    justify-content: center;
+  }
 }

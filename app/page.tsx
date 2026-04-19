@@ -1,8 +1,24 @@
 export function HomePage() {
+  const navItems = ['Home', 'About', 'Gallery', 'Books', 'Contact', 'Journal'];
+
   return (
     <main className="container">
-      <h1>EON</h1>
-      <p>Your space project is running on Next.js with pnpm.</p>
+      <header className="cosmic-header">
+        <a href="/" className="brand">
+          EON
+        </a>
+        <nav aria-label="Primary navigation">
+          <ul className="nav-list">
+            {navItems.map((item) => (
+              <li key={item}>
+                <a href={`#${item.toLowerCase()}`} className="nav-link">
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
     </main>
   );
 }

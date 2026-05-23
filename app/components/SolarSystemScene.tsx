@@ -3,20 +3,22 @@
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import {
+  ACESFilmicToneMapping,
   AmbientLight,
+  Timer,
   Color,
   Group,
+  HemisphereLight,
   Line,
   Mesh,
   MeshBasicMaterial,
   PerspectiveCamera,
   PointLight,
   Points,
+  SRGBColorSpace,
   Scene,
   SphereGeometry,
-  Texture,
   TextureLoader,
-  Timer,
   WebGLRenderer,
 } from 'three';
 import type { ReactElement } from 'react';
@@ -94,12 +96,17 @@ export function SolarSystemScene(): ReactElement {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(width, height);
     renderer.shadowMap.enabled = true;
+    renderer.outputColorSpace = SRGBColorSpace;
+    renderer.toneMapping = ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.38;
     mount.appendChild(renderer.domElement);
 
-    const ambient = new AmbientLight('#24385b', 0.4);
+    const ambient = new AmbientLight('#5a78a8', 0.72);
     scene.add(ambient);
+    const hemiFill = new HemisphereLight('#7090c0', '#182030', 0.52);
+    scene.add(hemiFill);
 
-    const sunLight = new PointLight('#fff1b8', 3.8, 800, 1.35);
+    const sunLight = new PointLight('#ffd27e', 58, 2200, 1.05);
     sunLight.position.set(0, 0, 0);
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 2048;
@@ -113,27 +120,32 @@ export function SolarSystemScene(): ReactElement {
     scene.add(sunMesh);
 
     const textureLoader = new TextureLoader();
+    textureLoader.setCrossOrigin('anonymous');
     const runtimePlanets: PlanetRuntime[] = [];
     PLANET_DEFINITIONS.forEach((planet) => createPlanet(planet, textureLoader, scene, runtimePlanets));
 
-    const farStars = createStarfield(3200, 1300, 1.5, '#f6fbff');
-    const dustStars = createStarfield(1200, 520, 3.2, '#89b4ff');
-    scene.add(farStars);
-    scene.add(dustStars);
+    const farStars = createStarfield(3800, 1450, 0.68, '#f4f8ff');
+    const midStars = createStarfield(2200, 980, 1.05, '#e9f1ff');
+    const dustStars = createStarfield(1200, 560, 1.4, '#9ec5ff');
+    scene.add(farStars, midStars, dustStars);
 
     const nebulaTextures = configureNebula(scene);
     const timer = new Timer();
     timer.connect(document);
 
-    const animate = (timestamp?: number) => {
+    const animate = () => {
       frameId = window.requestAnimationFrame(animate);
-      timer.update(timestamp);
-      const delta = timer.getDelta();
+      if (document.hidden) {
+        return;
+      }
+      timer.update();
+      const delta = Math.min(timer.getDelta(), 0.05);
       const elapsed = timer.getElapsed();
 
       sunMesh.rotation.y += delta * 0.07;
       farStars.rotation.y = elapsed * 0.004;
-      dustStars.rotation.y = elapsed * 0.01;
+      midStars.rotation.y = -elapsed * 0.0025;
+      dustStars.rotation.y = elapsed * 0.009;
 
       runtimePlanets.forEach((planetRuntime) => {
         planetRuntime.mesh.rotation.y += planetRuntime.rotationSpeed * delta * 10;
@@ -161,7 +173,6 @@ export function SolarSystemScene(): ReactElement {
       cleanupScene = () => {
       window.removeEventListener('resize', handleResize);
       window.cancelAnimationFrame(frameId);
-      timer.dispose();
       nebulaTextures.forEach((texture) => texture.dispose());
       scene.traverse((node) => {
         if (node instanceof Mesh || node instanceof Line || node instanceof Points) {

@@ -7,6 +7,11 @@ export type PlanetDefinition = {
   tilt: number;
   eccentricity: number;
   textureUrl: string;
+  normalMapUrl?: string;
+  bumpMapUrl?: string;
+  bumpScale?: number;
+  roughness?: number;
+  metalness?: number;
   atmosphere?: string;
   ring?: {
     innerRadius: number;
@@ -22,6 +27,7 @@ export type NebulaSpec = {
 };
 
 const AU_SCALE = 7.2;
+const PLANET_TEXTURE_BASE = 'https://cdn.jsdelivr.net/gh/jeromeetienne/threex.planets@master/images';
 
 export const PLANET_DEFINITIONS: PlanetDefinition[] = [
   {
@@ -32,7 +38,11 @@ export const PLANET_DEFINITIONS: PlanetDefinition[] = [
     orbitSpeed: 0.035,
     tilt: 0.02,
     eccentricity: 0.96,
-    textureUrl: 'https://threejs.org/examples/textures/planets/mercury.jpg',
+    textureUrl: `${PLANET_TEXTURE_BASE}/mercurymap.jpg`,
+    bumpMapUrl: `${PLANET_TEXTURE_BASE}/mercurybump.jpg`,
+    bumpScale: 0.2,
+    roughness: 0.9,
+    metalness: 0.03,
   },
   {
     name: 'Venus',
@@ -42,8 +52,10 @@ export const PLANET_DEFINITIONS: PlanetDefinition[] = [
     orbitSpeed: 0.025,
     tilt: 3.1,
     eccentricity: 0.98,
-    textureUrl: 'https://threejs.org/examples/textures/planets/venus.jpg',
+    textureUrl: `${PLANET_TEXTURE_BASE}/venusmap.jpg`,
     atmosphere: '#f7d8a8',
+    roughness: 0.86,
+    metalness: 0.02,
   },
   {
     name: 'Earth',
@@ -53,7 +65,10 @@ export const PLANET_DEFINITIONS: PlanetDefinition[] = [
     orbitSpeed: 0.02,
     tilt: 23.5,
     eccentricity: 0.985,
-    textureUrl: 'https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg',
+    textureUrl: `${PLANET_TEXTURE_BASE}/earthmap1k.jpg`,
+    normalMapUrl: `${PLANET_TEXTURE_BASE}/earthbump1k.jpg`,
+    roughness: 0.62,
+    metalness: 0.04,
     atmosphere: '#70c8ff',
   },
   {
@@ -64,7 +79,10 @@ export const PLANET_DEFINITIONS: PlanetDefinition[] = [
     orbitSpeed: 0.016,
     tilt: 25.2,
     eccentricity: 0.975,
-    textureUrl: 'https://threejs.org/examples/textures/planets/mars_1k_color.jpg',
+    textureUrl: `${PLANET_TEXTURE_BASE}/marsmap1k.jpg`,
+    normalMapUrl: `${PLANET_TEXTURE_BASE}/marsbump1k.jpg`,
+    roughness: 0.84,
+    metalness: 0.02,
   },
   {
     name: 'Jupiter',
@@ -74,7 +92,9 @@ export const PLANET_DEFINITIONS: PlanetDefinition[] = [
     orbitSpeed: 0.009,
     tilt: 3.1,
     eccentricity: 0.965,
-    textureUrl: 'https://threejs.org/examples/textures/planets/jupiter2_1k.jpg',
+    textureUrl: `${PLANET_TEXTURE_BASE}/jupitermap.jpg`,
+    roughness: 0.82,
+    metalness: 0.01,
   },
   {
     name: 'Saturn',
@@ -84,11 +104,13 @@ export const PLANET_DEFINITIONS: PlanetDefinition[] = [
     orbitSpeed: 0.006,
     tilt: 26.7,
     eccentricity: 0.955,
-    textureUrl: 'https://threejs.org/examples/textures/planets/saturn.jpg',
+    textureUrl: `${PLANET_TEXTURE_BASE}/saturnmap.jpg`,
+    roughness: 0.78,
+    metalness: 0.01,
     ring: {
       innerRadius: 12,
       outerRadius: 20,
-      textureUrl: 'https://threejs.org/examples/textures/planets/saturnringcolor.jpg',
+      textureUrl: `${PLANET_TEXTURE_BASE}/saturnringcolor.jpg`,
     },
   },
   {
@@ -99,7 +121,9 @@ export const PLANET_DEFINITIONS: PlanetDefinition[] = [
     orbitSpeed: 0.004,
     tilt: 97.8,
     eccentricity: 0.95,
-    textureUrl: 'https://threejs.org/examples/textures/planets/uranus.jpg',
+    textureUrl: `${PLANET_TEXTURE_BASE}/uranusmap.jpg`,
+    roughness: 0.83,
+    metalness: 0.01,
   },
   {
     name: 'Neptune',
@@ -109,7 +133,9 @@ export const PLANET_DEFINITIONS: PlanetDefinition[] = [
     orbitSpeed: 0.003,
     tilt: 28.3,
     eccentricity: 0.95,
-    textureUrl: 'https://threejs.org/examples/textures/planets/neptune.jpg',
+    textureUrl: `${PLANET_TEXTURE_BASE}/neptunemap.jpg`,
+    roughness: 0.8,
+    metalness: 0.02,
   },
 ];
 
